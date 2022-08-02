@@ -117,3 +117,9 @@ h1 {
 .label-score {
   margin-bottom: 2rem;
 }
+.success-body{
+  background-color: #60b347;
+}
+.fail-body{
+  background-color: #9d1212;
+}
