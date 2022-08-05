@@ -49,7 +49,12 @@ class Game {
 	hold() {
 		this.player1.hold();
 		this.player2.hold();
+		if (this.player1.won())
+			return 0;
+		if (this.player2.won())
+			return 1;
 		this.switch();
+		return NaN;
 	};
 	reset() {
 		this.player1.reset();
@@ -60,7 +65,7 @@ class Game {
 }
 
 const game = new Game();
-const update = (player1, player2, roll) => {
+const update = (player1, player2, roll, hold = NaN) => {
 	document.querySelector('#current--0').textContent = player1.current;
 	document.querySelector('#current--1').textContent = player2.current;
 	document.querySelector('#score--0').textContent = player1.score;
@@ -80,18 +85,22 @@ const update = (player1, player2, roll) => {
 	if (roll == -1) {
 		document.querySelector('.dice').style.visibility = 'hidden';
 	}
+	if (!isNaN(hold)) {
+		document.querySelector(`.player--${hold}`).classList.add('player--winner')
+	}
+
 }
 const rollHandle = () => {
 	const roll = game.roll();
 	update(game.player1, game.player2, roll);
 }
 const holdHandle = () => {
-	game.hold();
-	update(game.player1, game.player2, NaN);
+	const hold = game.hold();
+	update(game.player1, game.player2, NaN, hold);
 }
 const newGameHandle = () => {
 	game.reset();
-	update(game.player1, game.player2, -1);
+	update(game.player1, game.player2, -1, NaN);
 }
 newGameHandle();
 const rollBtn = document.querySelector('.btn--roll');
