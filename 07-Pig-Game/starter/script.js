@@ -82,10 +82,17 @@ const update = (player1, player2, roll, hold = NaN) => {
 		document.querySelector('.dice').style.removeProperty('visibility');
 		document.querySelector('.dice').src = 'dice-' + roll + '.png';
 	}
-	if (roll == -1) {
+	if (roll == -1 && hold == -1) {
 		document.querySelector('.dice').style.visibility = 'hidden';
+		document.querySelector('.btn--roll').style.removeProperty('visibility');
+		document.querySelector('.btn--hold').style.removeProperty('visibility');
+		document.querySelector(`.player--0`).classList.remove('player--winner')
+		document.querySelector(`.player--1`).classList.remove('player--winner')
 	}
-	if (!isNaN(hold)) {
+	if (!isNaN(hold) && hold != -1) {
+		document.querySelector('.btn--roll').style.visibility = 'hidden';
+		document.querySelector('.btn--hold').style.visibility = 'hidden';
+		document.querySelector('.dice').style.visibility = 'hidden';
 		document.querySelector(`.player--${hold}`).classList.add('player--winner')
 	}
 
@@ -100,7 +107,7 @@ const holdHandle = () => {
 }
 const newGameHandle = () => {
 	game.reset();
-	update(game.player1, game.player2, -1, NaN);
+	update(game.player1, game.player2, -1, -1);
 }
 newGameHandle();
 const rollBtn = document.querySelector('.btn--roll');
