@@ -70,3 +70,22 @@ const printGoals = function (...players) {
 printGoals(...game.scored);
 team1 < team2 && console.log('team 1 is likely to win');
 team2 < team1 && console.log('team 1 is likely to win');
+
+for (const [i, pl] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${pl}`)
+}
+let sum = 0;
+const oddValues = Object.values(game.odds);
+for (const odd of oddValues) {
+  sum += odd;
+}
+console.log(`Average odd: ${sum / oddValues.length}`);
+for (const [key, odd] of Object.entries(game.odds)) {
+  key !== 'x' && console.log(`Odd of victory ${game[key]}: ${odd}`);
+  key === 'x' && console.log(`Odd of draw: ${odd}`);
+}
+const scorers = {}
+for (const scorer of game.scored) {
+  scorers[scorer] = scorers[scorer] + 1 || 1;
+}
+console.log(scorers);
