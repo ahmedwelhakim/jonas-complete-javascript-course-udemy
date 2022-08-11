@@ -16,7 +16,7 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 
 GOOD LUCK 😀
 */
-const game = {
+/*const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
   players: [
@@ -115,4 +115,25 @@ average, every ${90 / gameEvents.size} minutes`);
 for (const [i, event] of gameEvents.entries()) {
   const str = i > 45 ? `[SECOND HALF]` : '[FIRST HALF]';
   console.log(str + `${i}: ${event}`);
+}*/
+// Solving Challenge 4
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+document.querySelector('button').addEventListener('click', () => {
+  toCamelCase(document.querySelector('textarea').value);
+})
+function toCamelCase(text) {
+  const texts = text.split('\n');
+  for (const [i, text] of texts.entries()) {
+    const names = text.trim().toLowerCase().split('_');
+    let res = '';
+    for (const [i, name] of names.entries()) {
+      if (i == 0) res += name;
+      else {
+        res += name[0].toUpperCase() + name.slice(1);
+      }
+    }
+    console.log(res.padEnd(20, '.').padEnd(20 + i + 1, '✅'));
+
+  }
 }
